@@ -1,10 +1,10 @@
 
 
-const multiplication = (num1 , num2) => num1 * num2;
+// const multiplication = (num1 , num2) => num1 * num2;
 
 
 
-console.log(multiplication(3, 4));
+// console.log(multiplication(3, 4));
 
 const student = {
     name: 'Mayur',
@@ -14,4 +14,17 @@ const student = {
     }
 }
 
-student.greet();
+const student2 = {...student };
+
+if (student === student2) {
+    console.log("same object");
+} else {
+    console.log("Different object");
+}
+
+const student3 = { ...student, name: 'Sunil' };
+
+console.log(student);
+console.log(student3);
+
+// student.greet();
