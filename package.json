@@ -1,0 +1,17 @@
+{
+  "name": "sharpener_backend",
+  "version": "1.0.0",
+  "description": "complete Node Js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node --watch app.js"
+  },
+  "keywords": [],
+  "author": "Mayur Kolhe",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
