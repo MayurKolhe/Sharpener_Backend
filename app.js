@@ -1,11 +1,8 @@
 const http = require("http");
+const fs = require("fs");
 
 const server = http.createServer((request, response) => {
-  console.log(request.url, request.method, request.headers);
-
   const url = request.url;
-  response.setHeader("Content-Type", "text/html");
-  response.write("<html>");
 
   const urlobj = {
     "/node": () =>
@@ -20,12 +17,34 @@ const server = http.createServer((request, response) => {
       response.write(
         "<head><title>About Us page</title></head><body><h1>Welcome to About Us page</h1></body>"
       ),
+      "/": () => {
+          const data = fs.readFileSync('./message.txt');
+      response.write(
+        '<head><title>Form Page</title></head><body><h1>'+ data.toString() +'</h1><form action = "/message" method ="POST" ><input type="text" name="message"><button type="submit">Submit</button></form></body>'
+        )
+    }
   };
 
+  if (url === "/message" && request.method === "POST") {
+    const body = [];
+    request.on("data", (chunk) => {
+      body.push(chunk);
+    });
+    request.on("end", () => {
+      const parsebody = Buffer.concat(body).toString();
+      const message = parsebody.split("=")[1];
+      fs.writeFileSync("message.txt", message.replace("+"," "));
+    });
+
+    response.statusCode = 302;
+    response.setHeader("Location", "/");
+    return response.end();
+  }
+  response.setHeader("Content-Type", "text/html");
+  response.write("<html>");
   if (urlobj[url]) {
     urlobj[url]();
   }
-
   response.write("</html>");
   response.end();
 });
