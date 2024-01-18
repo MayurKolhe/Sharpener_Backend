@@ -10,6 +10,6 @@ exports.getContactUs = (req, res, next) => {
 };
 
 exports.postContactUs = (req, res, next) => {
-  res.render('<h1> Message submitted Successfully <h1>');
-//   res.redirect("/");
+  res.send('<h1> Message submitted Successfully <h1>');
+  res.render("/");
 };
